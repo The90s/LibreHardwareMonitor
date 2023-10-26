@@ -45,8 +45,8 @@ Sensors
 |  |  +- Fan #4         :        0        0        0 (/lpc/nct6798d/fan/3)
 |  |  +- Fan #5         :        0        0        0 (/lpc/nct6798d/fan/4)
 |  |  +- Fan #6         :        0        0        0 (/lpc/nct6798d/fan/5)
-|  |  +- Fan #1         :  67.8431  66.2745  81.5686 (/lpc/nct6798d/control/0)
 |  |  +- Fan #7         :        0        0        0 (/lpc/nct6798d/fan/6)
+|  |  +- Fan #1         :  67.8431  66.2745  81.5686 (/lpc/nct6798d/control/0)
 |  |  +- Fan #2         :   34.902   32.549  57.6471 (/lpc/nct6798d/control/1)
 |  |  +- Fan #3         :       60       60       60 (/lpc/nct6798d/control/2)
 |  |  +- Fan #4         :       60       60       60 (/lpc/nct6798d/control/3)
@@ -129,22 +129,22 @@ Sensors
 |  +- Virtual Memory Used :  21.4316  19.3747  21.6826 (/ram/data/2)
 |  +- Virtual Memory Available :  2.88241   2.3219  3.35171 (/ram/data/3)
 |
-+- Intel(R) UHD Graphics 730 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89})
-|  +- GPU Power      : 0.0201169        0  4258.96 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/power/0)
-|  +- D3D 3D         : 0.939093 0.104752  35.2802 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/0)
-|  +- D3D Copy       :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/1)
-|  +- D3D GDI Render :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/2)
-|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/3)
-|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/4)
-|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/5)
-|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/6)
-|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/7)
-|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/8)
-|  +- D3D Video Decode :  1.67533        0  13.7776 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/9)
-|  +- D3D Video Decode :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/10)
-|  +- D3D Video Processing :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/11)
-|  +- D3D Video Processing :        0        0        0 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/load/12)
-|  +- D3D Shared Memory Used :  1316.79  1289.25  1547.25 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}/smalldata/0)
++- Intel(R) UHD Graphics 730 (/gpu-intel-integrated/xxxxxx)
+|  +- GPU Power      : 0.0201169        0  4258.96 (/gpu-intel-integrated/xxxxxx/power/0)
+|  +- D3D 3D         : 0.939093 0.104752  35.2802 (/gpu-intel-integrated/xxxxxx/load/0)
+|  +- D3D Copy       :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/1)
+|  +- D3D GDI Render :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/2)
+|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/3)
+|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/4)
+|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/5)
+|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/6)
+|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/7)
+|  +- D3D Other      :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/8)
+|  +- D3D Video Decode :  1.67533        0  13.7776 (/gpu-intel-integrated/xxxxxx/load/9)
+|  +- D3D Video Decode :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/10)
+|  +- D3D Video Processing :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/11)
+|  +- D3D Video Processing :        0        0        0 (/gpu-intel-integrated/xxxxxx/load/12)
+|  +- D3D Shared Memory Used :  1316.79  1289.25  1547.25 (/gpu-intel-integrated/xxxxxx/smalldata/0)
 |
 +- Colorful CN600 512GB DDR (/nvme/0)
 |  +- Temperature    :       31        0       37 (/nvme/0/temperature/0)
@@ -311,7 +311,7 @@ Parameters
 |
 +- Generic Memory (/ram)
 |
-+- Intel(R) UHD Graphics 730 (/gpu-intel-integrated/\\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89})
++- Intel(R) UHD Graphics 730 (/gpu-intel-integrated/xxxxxx)
 |
 +- Colorful CN600 512GB DDR (/nvme/0)
 |
@@ -390,8 +390,8 @@ Cache [L2] Associativity: 16Way
 Cache [L3] Size: 20480
 Cache [L3] Associativity: Other
 
-Memory Device [0] Manufacturer: 
-Memory Device [0] Part Number: 
+Memory Device [0] Manufacturer:
+Memory Device [0] Part Number:
 Memory Device [0] Device Locator: Controller0-ChannelA-DIMM0
 Memory Device [0] Bank Locator: BANK 0
 Memory Device [0] Speed: 0
@@ -1638,7 +1638,7 @@ DeviceId: \\?\ROOT#BasicRender#0000#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}
 IsIntel: False
 
 AdapterIndex: 1
-DeviceId: \\?\PCI#VEN_8086&DEV_4682&SUBSYS_88821043&REV_0C#3&11583659&0&10#{1ca05180-a699-450a-9a0c-de4fbe3ddd89}
+DeviceId: xxxxxx
 IsIntel: True
 GpuSharedLimit: 8454365184
 GpuSharedUsed: 1431769088
