@@ -8,66 +8,27 @@ using LibreHardwareMonitor.Hardware;
 namespace LibreHardwareMonitor
 {
 
-    public class UpdateVisitor : IVisitor
-    {
-        public void VisitComputer(IComputer computer)
-        {
-            computer.Traverse(this);
-            Console.WriteLine("visitComputer: {0}", computer);
-        }
-        public void VisitHardware(IHardware hardware)
-        {
-            hardware.Update();
-            Console.WriteLine("visitHardware: {0}", hardware.GetType);
-            foreach (IHardware subHardware in hardware.SubHardware)
-            {
-                subHardware.Accept(this);
-            }
-        }
-        public void VisitSensor(ISensor sensor) { }
-        public void VisitParameter(IParameter parameter) { }
-    }
-    // public static class Program
     public class Program
     {
-        public static int foobar()
+        private readonly ushort _interval = 1000;
+        static void LibreHardwareMonitorInit(ushort ms)
         {
-            return 10;
-        }
-
-        static Computer computer = new Computer
-        {
-            IsCpuEnabled = true,
-            IsGpuEnabled = true,
-            IsMemoryEnabled = true,
-            IsMotherboardEnabled = true,
-            IsControllerEnabled = true,
-            IsNetworkEnabled = true,
-            IsStorageEnabled = true,
-            IsBatteryEnabled = true,
-            IsPsuEnabled = true,
-        };
-        static bool _init = false;
-
-        static void ComputerInit()
-        {
-            if (!_init)
-            {
-                computer.Open();
-                computer.Accept(new UpdateVisitor());
-            }
-            _init = true;
+            ComputerSingleton.Init();
+            SystemInfomationStatic.init(ComputerSingleton.Hardwares);
+            // TODO: start timer with ms
+            // update info: network、CPU load、GPU load、temp
         }
 
         public async Task<object> FooBar(dynamic input)
         {
-            ComputerInit();
+            LibreHardwareMonitorInit(_interval);
             // computer.Accept(new UpdateVisitor());
 
             var stringBuilder = new StringBuilder(1024);
-            foreach (IHardware hardware in computer.Hardware)
+            foreach (IHardware hardware in ComputerSingleton.Hardwares)
             {
-                hardware.Update();
+                if (hardware.HardwareType == HardwareType.Motherboard)
+                    hardware.Update();
                 Console.WriteLine($"foreach name: {hardware.Name}; id: {hardware.Identifier}; ToString: {hardware.ToString()}; type: {hardware.GetType}");
                 ReportHardwareSensorTree(hardware, stringBuilder, "|  ");
                 //     Console.WriteLine("Hardware: {0}", hardware.Name);
@@ -76,6 +37,7 @@ namespace LibreHardwareMonitor
             return stringBuilder.ToString();
 
         }
+
         private static void ReportHardwareSensorTree(IHardware hardware, StringBuilder stringBuilder, string space)
         {
             stringBuilder.Append(String.Format("\r{0}|", space));
@@ -93,5 +55,16 @@ namespace LibreHardwareMonitor
             foreach (IHardware subHardware in hardware.SubHardware)
                 ReportHardwareSensorTree(subHardware, stringBuilder, "|  ");
         }
+
+
+        public static string GetMotherboard()
+        {
+            return SystemInfomationStatic.MotherBoard;
+        }
+        public static string GetGPU()
+        {
+            return SystemInfomationStatic.Gpu;
+        }
+
     }
 }
