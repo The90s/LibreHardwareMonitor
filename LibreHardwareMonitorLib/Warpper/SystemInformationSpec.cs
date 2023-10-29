@@ -76,7 +76,6 @@ public class SystemInfomationStatic
                 case HardwareType.Psu: _psu = hardware.Name; break;
                 case HardwareType.Battery: _battery = hardware.Name; break;
             }
-
         }
 
         _init = true;

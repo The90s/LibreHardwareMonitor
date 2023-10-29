@@ -6,12 +6,6 @@ using LibreHardwareMonitor.Hardware;
 
 namespace LibreHardwareMonitor;
 
-// public class ComputerSingleton
-// {
-
-// }
-
-
 public sealed class ComputerSingleton
 {
 
@@ -24,14 +18,16 @@ public sealed class ComputerSingleton
         IsControllerEnabled = true,
         IsNetworkEnabled = true,
         IsStorageEnabled = true,
+        // 电池
         IsBatteryEnabled = true,
         // 电源
         IsPsuEnabled = true,
     };
 
-    ComputerSingleton() { }
+    private ComputerSingleton() { }
     private static readonly object _lock = new();
     private static bool _isOpen = false;
+    public static bool IsOpen => _isOpen;
     public static Computer Instance
     {
         get
@@ -74,12 +70,10 @@ public class UpdateVisitor : IVisitor
     public void VisitComputer(IComputer computer)
     {
         computer.Traverse(this);
-        Console.WriteLine("visitComputer: {0}", computer);
     }
     public void VisitHardware(IHardware hardware)
     {
         hardware.Update();
-        Console.WriteLine("visitHardware: {0}", hardware.GetType);
         foreach (IHardware subHardware in hardware.SubHardware)
         {
             subHardware.Accept(this);

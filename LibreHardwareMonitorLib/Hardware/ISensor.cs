@@ -29,7 +29,7 @@ public enum SensorType
     Data, // GB = 2^30 Bytes
     SmallData, // MB = 2^20 Bytes
     Throughput, // B/s
-    TimeSpan, // Seconds 
+    TimeSpan, // Seconds
     Energy, // milliwatt-hour (mWh)
     Noise // dBA
 }
