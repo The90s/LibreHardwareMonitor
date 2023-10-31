@@ -253,8 +253,6 @@ public class SystemInformationDynamic
 
     private static void updateNetwork(IHardware hardware)
     {
-        _networkSpeedUpload = 0;
-        _networkSpeedDownload = 0;
         foreach (ISensor sensor in hardware.Sensors)
         {
             // Console.WriteLine("Update NetWork: name: {0}; id: {1}; value: {2}", sensor.Name, sensor.Identifier, sensor.Value);
@@ -262,7 +260,7 @@ public class SystemInformationDynamic
             {
                 if (sensor.Value != null && sensor.Value != 0)
                 {
-                    _networkSpeedUpload += sensor.Value / 1024;
+                    _networkSpeedUpload = sensor.Value / 1024;
 #if PRINT_UPDATE_DATE
                     Console.WriteLine("Update NetWork: upload: {0}", _networkSpeedUpload);
 #endif
@@ -272,7 +270,7 @@ public class SystemInformationDynamic
             {
                 if (sensor.Value != null && sensor.Value != 0)
                 {
-                    _networkSpeedDownload += sensor.Value / 1024;
+                    _networkSpeedDownload = sensor.Value / 1024;
 #if PRINT_UPDATE_DATE
                     Console.WriteLine("Update NetWork: download: {0}", _networkSpeedDownload);
 #endif
