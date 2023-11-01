@@ -5,7 +5,7 @@ using LibreHardwareMonitor.Hardware;
 
 namespace LibreHardwareMonitor;
 
-public class SystemInfomationStatic
+public class SystemInfomationSpec
 {
     private static bool _init = false;
     private static string _motherboard = null;
@@ -52,7 +52,6 @@ public class SystemInfomationStatic
 
     public static void init(IList<IHardware> hardwares)
     {
-
         if (_init)
         {
             return;
