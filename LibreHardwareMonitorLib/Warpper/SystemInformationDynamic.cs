@@ -211,7 +211,7 @@ public class SystemInformationDynamic
                 }
                 foreach (ISensor sensor in hardware.Sensors)
                 {
-                    if (SensorsNameEquels(sensor, "D3D Video Decode") && SensorsTypeIsLoad(sensor) && (int)sensor.Value != 0)
+                    if (SensorsNameEquels(sensor, "D3D 3D") && SensorsTypeIsLoad(sensor) && (int)sensor.Value != 0)
                     {
                         // Note: D3D Video Decode 名字会有重复的；多加判断：数字是不是0
                         // |  +- D3D Video Decode :  1.67533        0  13.7776 (/gpu-intel-integrated/xxxxxx/load/9)   xxxxx
