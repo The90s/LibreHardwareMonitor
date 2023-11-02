@@ -4,7 +4,7 @@ using LibreHardwareMonitor.Hardware;
 
 namespace LibreHardwareMonitor;
 
-public class ComputerReportsWarpper
+public class ComputerReports
 {
     public static string GetReports() => ComputerSingleton.Instance.GetReport();
 
@@ -20,18 +20,40 @@ public class ComputerReportsWarpper
 
     public static string GetNetworkReport() => GetReport(HardwareType.Network);
 
+    public static string GetReport(string type)
+    {
+        if (type.ToLower().Equals("all") || string.IsNullOrEmpty(type))
+        {
+            return GetReports();
+        }
+        else
+        {
+            if (Enum.TryParse<HardwareType>(type, out HardwareType outType))
+            {
+                return GetReport(outType);
+            }
+            else
+            {
+                return string.Format($"Error HardwareType:{0}, please check input parameter: {type}");
+            }
+        }
+    }
+
     public static string GetReport(HardwareType type)
     {
-        StringBuilder stringBuilder = new();
-        foreach (IHardware hardware in ComputerSingleton.Hardwares)
         {
-            if (hardware.HardwareType == type)
+            StringBuilder stringBuilder = new();
+            foreach (IHardware hardware in ComputerSingleton.Hardwares)
             {
-                stringBuilder.Append(hardware.GetReport());
+                if (hardware.HardwareType == type)
+                {
+                    stringBuilder.Append(hardware.GetReport());
+                }
+
             }
 
+            return stringBuilder.ToString();
         }
-
-        return stringBuilder.ToString();
     }
+
 }
