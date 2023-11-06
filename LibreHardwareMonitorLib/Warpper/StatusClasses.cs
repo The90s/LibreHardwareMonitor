@@ -89,4 +89,25 @@ public class StatusClasses
             this.total = total;
         }
     }
+    public class DiskStatus
+    {
+        public int load;
+        public float used;
+        public long total;
+        public float activity;
+        public int temperature;
+        public float readSpeed;
+        public float writeSpeed;
+
+        public DiskStatus(int load, float used, long total, float activity, int temperature, float readSpeed, float writeSpeed)
+        {
+            this.load = load;
+            this.used = used;
+            this.total = total;
+            this.activity = activity;
+            this.temperature = temperature;
+            this.readSpeed = readSpeed;
+            this.writeSpeed = writeSpeed;
+        }
+    }
 }

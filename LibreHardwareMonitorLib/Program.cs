@@ -68,6 +68,16 @@ namespace LibreHardwareMonitor
         public async Task<object> MemUsed(dynamic input) => SystemInformationStatus.MemUsed();
         public async Task<object> MemTotal(dynamic input) => SystemInformationStatus.MemTotal();
 
+        // Disk
+        public async Task<object> DiskStatus(dynamic input) => SystemInformationStatus.GetDiskStatus();
+        public async Task<object> DiskLoad(dynamic input) => SystemInformationStatus.DiskLoad();
+        public async Task<object> DiskUsed(dynamic input) => SystemInformationStatus.DiskUsed();
+        public async Task<object> DiskTotal(dynamic input) => SystemInformationStatus.DiskTotal();
+        public async Task<object> DiskActivity(dynamic input) => SystemInformationStatus.DiskActivity();
+        public async Task<object> DiskTemperature(dynamic input) => SystemInformationStatus.DiskTemperature();
+        public async Task<object> DiskReadSpeed(dynamic input) => SystemInformationStatus.DiskReadSpeed();
+        public async Task<object> DiskWriteSpeed(dynamic input) => SystemInformationStatus.DiskWriteSpeed();
+
         // Network
         public async Task<object> NetworkStatus(dynamic input) => SystemInformationStatus.GetNetworkStatus();
         public async Task<object> NetworkUpload(dynamic input) => SystemInformationStatus.NetworkUpload();

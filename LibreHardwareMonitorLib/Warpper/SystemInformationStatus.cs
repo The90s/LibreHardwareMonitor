@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LibreHardwareMonitor.Hardware;
+using LibreHardwareMonitor.Hardware.Storage;
 using static LibreHardwareMonitor.StatusClasses;
 
 namespace LibreHardwareMonitor;
@@ -16,13 +18,23 @@ public class SystemInformationStatus
     private static int _cpuTemperature = 0;
 
     // CPU 负载
-    private static int _cpuLoad = 0;
-    private static int _cpuFan = 0;
+    private static int _cpuLoad = 0; // %
+    private static int _cpuFan = 0; // RPM/S
 
     // Memory
-    private static int _memLoad = 0;
+    private static int _memLoad = 0; // %
     private static int _memUsed = 0; // MB
     private static int _memTotal = 0; // MB
+
+    // Disk
+    private static int _diskLoad = 0; // %
+    private static float _diskUsed = 0; // GB
+    private static long _diskTotal = 0; // GB
+    private static float _diskActivity = 0; // %
+    private static int _diskTemperature = 0; //
+    private static float _diskReadSpeed = 0; // KB/S
+    private static float _diskWriteSpeed = 0; // KB/S
+
 
     // GPU
     private static int _gpuLoad = 0;
@@ -34,9 +46,12 @@ public class SystemInformationStatus
     private static float _networkUpload = 0; // kb/s
     private static float _networkDownload = 0;// kb/s
     private static List<FanStatus> _fanSpeeds = new(); // TODO:
+
+    // helper variable
     private static bool _isGpuNvidia = false;
     private static bool _isGpuAmd = false;
     private static bool _isGpuIntel = false;
+    private static string _mainDiskName = string.Empty;
 
     private static object _computerUpdateLock = new();
 
@@ -72,12 +87,15 @@ public class SystemInformationStatus
 
     public static void initSpec(Computer computer)
     {
+        // init Memeory (Total)
         SMBios sMBios = computer.SMBios;
         foreach (var memoryDevices in sMBios.MemoryDevices)
         {
             _memTotal += memoryDevices.Size;
         }
         Logger.Debug($"Total Memory: {_memTotal}"); // MB
+
+        // init Disk (Total)
     }
 
     public static CpuStatus GetCpuStatus()
@@ -106,6 +124,19 @@ public class SystemInformationStatus
     public static int MemLoad() { lock (_computerUpdateLock) { return _memLoad; } }
     public static float MemUsed() { lock (_computerUpdateLock) { return _memUsed; } }
     public static int MemTotal() { lock (_computerUpdateLock) { return _memTotal; } }
+
+    // Disk
+    public static DiskStatus GetDiskStatus()
+    {
+        lock (_computerUpdateLock) { return new(_diskLoad, _diskUsed, _diskTotal, _diskActivity, _diskTemperature, _diskReadSpeed, _diskWriteSpeed); }
+    }
+    public static int DiskLoad() { lock (_computerUpdateLock) { return _diskLoad; } }
+    public static float DiskUsed() { lock (_computerUpdateLock) { return _diskUsed; } }
+    public static long DiskTotal() { lock (_computerUpdateLock) { return _diskTotal; } }
+    public static float DiskActivity() { lock (_computerUpdateLock) { return _diskActivity; } }
+    public static int DiskTemperature() { lock (_computerUpdateLock) { return _diskTemperature; } }
+    public static float DiskReadSpeed() { lock (_computerUpdateLock) { return _diskReadSpeed; } }
+    public static float DiskWriteSpeed() { lock (_computerUpdateLock) { return _diskWriteSpeed; } }
 
     // Network
     public static NetworkStatus GetNetworkStatus()
@@ -147,7 +178,9 @@ public class SystemInformationStatus
                     case HardwareType.GpuIntel:
                         // 显卡后面单独处理
                         break;
-                    case HardwareType.Storage: break;
+                    case HardwareType.Storage:
+                        updateDisk(hardware);
+                        break;
                     case HardwareType.Network:
                         updateNetwork(hardware);
                         break;
@@ -293,6 +326,85 @@ public class SystemInformationStatus
             }
         }
         Logger.Debug($"mem total: {_memTotal}");
+    }
+
+    private static void updateDisk(IHardware hardware)
+    {
+        AbstractStorage storage = (AbstractStorage)hardware;
+        if (string.IsNullOrEmpty(_mainDiskName))
+        {
+
+            foreach (var deviceInfo in storage.DriveInfos)
+            {
+                if (!deviceInfo.IsReady)
+                    continue;
+                try
+                {
+                    if (deviceInfo.Name.Equals("C:\\"))
+                    {
+                        _mainDiskName = hardware.Name;
+                        Logger.Debug($"update disk: Driver Name: {_mainDiskName}");
+                        break;
+                    }
+                }
+                // catch (IOException) { }
+                catch (UnauthorizedAccessException) { }
+            }
+        }
+
+        if (_diskTotal == 0 && _mainDiskName.Equals(hardware.Name))
+        {
+            foreach (var deviceInfo in storage.DriveInfos)
+            {
+                if (!deviceInfo.IsReady)
+                    continue;
+
+                try
+                {
+                    _diskTotal += deviceInfo.TotalSize;
+                    Logger.Debug($"update disk Disk Driver Total Size: name {deviceInfo.Name}; Total Size {deviceInfo.TotalSize}");
+
+                }
+                // catch (IOException) { }
+                catch (UnauthorizedAccessException) { }
+            }
+            Logger.Debug($"Disk Driver Total Size: {_diskTotal} KB | {_diskTotal / 1024 / 1024 / 1024} G");
+        }
+
+        if (_mainDiskName.Equals(hardware.Name))
+        {
+            foreach (var sensor in hardware.Sensors)
+            {
+                if (SensorUtils.NameEquels(sensor, "Used Space") && SensorUtils.TypeIsLoad(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
+                {
+                    _diskLoad = (int)(sensor.Value ?? 0);
+                    _diskUsed = _diskTotal / 100 * _diskLoad;
+                    Logger.Debug($"disk load: {_diskLoad}%");
+                    Logger.Debug($"disk used: {_diskUsed} KB");
+                }
+                else if (SensorUtils.NameEquels(sensor, "Temperature") && SensorUtils.TypeIsTemperature(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
+                {
+                    _diskTemperature = (int)(sensor.Value ?? 0);
+                    Logger.Debug($"disk temperature: {_diskTemperature}");
+                }
+                // TODO:
+                else if (SensorUtils.NameEquels(sensor, "Total Activity") && SensorUtils.TypeIsLoad(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
+                {
+                    _diskActivity = sensor.Value ?? 0;
+                    Logger.Debug($"disk total activity: {_diskActivity}");
+                }
+                else if (SensorUtils.NameEquels(sensor, "Read Rate") && SensorUtils.TypeIsThroughput(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
+                {
+                    _diskReadSpeed = (sensor.Value ?? 0) / 1024;
+                    Logger.Debug($"disk read speed: {_diskReadSpeed}");
+                }
+                else if (SensorUtils.NameEquels(sensor, "Write Rate") && SensorUtils.TypeIsThroughput(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
+                {
+                    _diskWriteSpeed = (sensor.Value ?? 0) / 1024;
+                    Logger.Debug($"disk write speed: {_diskWriteSpeed}");
+                }
+            }
+        }
     }
 
     private static void updateNetwork(IHardware hardware)
