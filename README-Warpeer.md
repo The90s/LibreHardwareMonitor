@@ -27,7 +27,7 @@
 -   [ ] 用这个库代替 systeminfomation（Nodejs 库）
 -   [ ] dynamic 类型：编译问题，依赖库问题
 -   [ ] 方便调试 libreHardwareMonitor 库的接口：C#回调到 js
-    -   [x] 日志控制：输出到stdout
+    -   [x] 日志控制：输出到 stdout
     -   [ ] 输出到文件
 
 ## report 文件分析
@@ -118,8 +118,12 @@
 ## 已知 BUG
 
 -   NVIDIA GeForce RTX 2070 三个风扇只能获取到两个风扇的转速
--   Radeon RX 580 Series 获取不到显卡风扇转速（1 个风扇）
--   ZHITAI TiPlus5000 512GB 使用率获取不到 `Used Space     :                            (/nvme/1/load/0)`
+-   Radeon RX 580 Series 获取不到显卡风扇转速（1 个风扇）(显卡没启动？？？)
+-   Radeon RX 580 Series 获取不到负载（1 个风扇）
+    -   `|  +- GPU Core       :        0        0       11 (/gpu-amd/0/load/0)` 获取不到
+    -   `|  +- D3D 3D         : 0.749275        0  11.8109 (/gpu-amd/0/load/2)` 用这个字段来替换？？？
+-   ZHITAI TiPlus5000 512GB 使用率获取不到
+    -   `Used Space     :                            (/nvme/1/load/0)`
 
 ## dotnet
 
