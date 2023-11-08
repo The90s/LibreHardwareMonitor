@@ -23,5 +23,5 @@ echo
 if [[ $? == 0 ]]; then
     [[ ! -d "../electron-vite/lib" ]] && mkdir "../electron-vite/lib"
     echo "Copy LibreHardwareMonitor.dll [./bin/${BUILD_TYPE}/net472/*] to electron-vite Project [../electron-vite/lib/]";
-    mv ./bin/${BUILD_TYPE}/net472/* ../electron-vite/lib/
+    cp ./bin/${BUILD_TYPE}/net472/* ../electron-vite/lib/
 fi
