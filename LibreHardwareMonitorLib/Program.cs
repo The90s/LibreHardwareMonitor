@@ -48,6 +48,8 @@ namespace LibreHardwareMonitor
         // TODO: 还有些其他的，暂时没用到，后面需要再去增加
         public async Task<object> GetMotherboard(dynamic input) => SystemInfomationSpec.MotherBoard;
         public async Task<object> GetGPU(dynamic input) => SystemInfomationSpec.Gpu;
+        public async Task<object> Monitor(dynamic input) => SystemInfomationSpec.Monitor();
+
 
         // Status ---------------------------------------
         // CPU

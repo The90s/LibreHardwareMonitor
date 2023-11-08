@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Hardware.Info;
 using LibreHardwareMonitor.Hardware;
 
 namespace LibreHardwareMonitor;
 
 public class SystemInfomationSpec
 {
+    private static readonly IHardwareInfo hardwareInfo = new HardwareInfo(true);
     private static bool _init = false;
     private static string _motherboard = null;
     private static string _cpu = null;
@@ -20,6 +22,7 @@ public class SystemInfomationSpec
     private static string _embeddedController = null; // ??
     private static string _psu = null; // 电源
     private static string _battery = null; // 电池
+    private static string _monitor = null; // 电池
 
     public static string MotherBoard => _motherboard;
     public static string Cpu => _cpu;
@@ -49,6 +52,35 @@ public class SystemInfomationSpec
     public static string Storage => _storage;
     public static string Network => _network;
     public static string Battery => _battery;
+    public static string Monitor()
+    {
+        // Caption: Generic PnP Monitor
+        // Description: Generic PnP Monitor
+        // MonitorManufacturer: (Standard monitor types)
+        // MonitorType: Generic PnP Monitor
+        // Name: Generic PnP Monitor
+        // PixelsPerXLogicalInch: 96
+        // PixelsPerYLogicalInch: 96
+        // Active: True
+        // ManufacturerName: DELL
+        // ProductCodeID: 40E8
+        // SerialNumberID: 2DH7691BB70L
+        // UserFriendlyName: DELL U2417H
+        // WeekOfManufacture: 2
+        // YearOfManufacture: 2019
+        hardwareInfo.RefreshMonitorList();
+        foreach (var hardware in hardwareInfo.MonitorList)
+        {
+            Logger.Debug($"Monitor: {hardware}");
+            // Note: 简单处理，只返回一个
+            if (!string.IsNullOrEmpty(hardware.UserFriendlyName))
+            {
+                return hardware.UserFriendlyName;
+            }
+
+        }
+        return string.Empty;
+    }
 
     public static void init(IList<IHardware> hardwares)
     {
@@ -76,7 +108,6 @@ public class SystemInfomationSpec
                 case HardwareType.Battery: _battery = hardware.Name; break;
             }
         }
-
         _init = true;
     }
 
