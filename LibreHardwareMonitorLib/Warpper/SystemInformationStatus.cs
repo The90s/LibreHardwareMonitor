@@ -436,7 +436,7 @@ public class SystemInformationStatus
 
         foreach (IHardware subHardware in hardware.SubHardware)
         {
-
+            subHardware.Update();
             ISensor[] sensors = subHardware.Sensors;
             Array.Sort(sensors, CompareSensor);
 
