@@ -19,7 +19,7 @@ namespace LibreHardwareMonitor
                     SystemInfomationSpec.init(ComputerSingleton.Hardwares);
 
                     // Update system info: network、CPU load、GPU load、temp、fan、etc
-                    SystemInformationStatus.init(ComputerSingleton.Instance, intervalMs);
+                    SystemInformationStatus.init(intervalMs);
                     Logger.Debug($"LibreHardwareMonitorInit end");
                 }
                 return true;

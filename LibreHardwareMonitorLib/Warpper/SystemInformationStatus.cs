@@ -11,15 +11,13 @@ namespace LibreHardwareMonitor;
 
 public class SystemInformationStatus
 {
-    private static Computer _computer = null;
     private static Timer _updateTimer = null;
-
-    // CPU 温度
-    private static int _cpuTemperature = 0;
 
     // CPU 负载
     private static int _cpuLoad = 0; // %
     private static int _cpuFan = 0; // RPM/S
+    private static float _cpuTemperature = 0;
+
 
     // Memory
     private static int _memLoad = 0; // %
@@ -57,17 +55,16 @@ public class SystemInformationStatus
 
     private SystemInformationStatus() { }
 
-    public static void init(Computer computer, int intervalMs)
+    public static void init(int intervalMs)
     {
         Logger.Debug($"SystemInformationDynamic:init ThreadID: {Thread.CurrentThread.ManagedThreadId}");
-        _computer = computer;
         if (_updateTimer == null)
         {
             _updateTimer = new Timer(updateStatus, null, TimeSpan.FromMilliseconds(intervalMs), TimeSpan.FromMilliseconds(intervalMs));
         }
 
         // Check GPU
-        foreach (IHardware hardware in _computer.Hardware)
+        foreach (IHardware hardware in ComputerSingleton.Instance.Hardware)
         {
             switch (hardware.HardwareType)
             {
@@ -82,7 +79,7 @@ public class SystemInformationStatus
                     break;
             }
         }
-        initSpec(computer);
+        initSpec(ComputerSingleton.Instance);
     }
 
     public static void initSpec(Computer computer)
@@ -102,7 +99,7 @@ public class SystemInformationStatus
     {
         lock (_computerUpdateLock) { return new(_cpuLoad, _cpuTemperature, _cpuFan); }
     }
-    public static int CpuTemperature()
+    public static float CpuTemperature()
     {
         lock (_computerUpdateLock) { return _cpuTemperature; }
     }
@@ -148,14 +145,10 @@ public class SystemInformationStatus
 
     private static void updateStatus(object obj)
     {
-        if (_computer == null)
-        {
-            return;
-        }
 
         lock (_computerUpdateLock)
         {
-            foreach (IHardware hardware in _computer.Hardware)
+            foreach (IHardware hardware in ComputerSingleton.Instance.Hardware)
             {
                 // Test：测试更新需要的时间
                 // Logger.Debug($"updateStatus start: {hardware.Name}");
@@ -192,7 +185,7 @@ public class SystemInformationStatus
             }
 
             // 不同显卡处理
-            updateGpu(_computer.Hardware);
+            updateGpu(ComputerSingleton.Instance.Hardware);
         }
     }
 
@@ -204,7 +197,7 @@ public class SystemInformationStatus
             // AMD CPU Name: CCDs Average (Tdie)
             if ((SensorUtils.NameEquels(sensor, "Core Average") || SensorUtils.NameEquels(sensor, "CCDs Average (Tdie)")) && SensorUtils.TypeIsTemperature(sensor))
             {
-                _cpuTemperature = (int)(sensor.Value ?? 0);
+                _cpuTemperature = sensor.Value ?? 0;
                 Logger.Debug($"cpu temperature: {_cpuTemperature}");
             }
             else if (SensorUtils.NameEquels(sensor, "CPU Total") && SensorUtils.TypeIsLoad(sensor))
@@ -300,7 +293,7 @@ public class SystemInformationStatus
             }
 
             // intel GPU的温度就CPU的温度
-            _gpuTemperature = _cpuTemperature;
+            _gpuTemperature = (int)_cpuTemperature;
             // intel GPU的风扇就CPU的风扇
             _gpuFan = _cpuFan;
             Logger.Debug($"Intel GPU temperature: {_gpuTemperature}");
@@ -470,6 +463,11 @@ public class SystemInformationStatus
             // |  |  +- Fan #5         :       60       60       60 (/lpc/nct6798d/control/4)
             // |  |  +- Fan #6         :      100      100      100 (/lpc/nct6798d/control/5)
             // |  |  +- Fan #7         :      100      100      100 (/lpc/nct6798d/control/6)
+        }
+        if (cpuFan == 0)
+        {
+            // Note: 这个库有bug，
+            ComputerSingleton.Reset();
         }
         _cpuFan = cpuFan;
         Logger.Debug($"cpu fan: {_cpuFan}");

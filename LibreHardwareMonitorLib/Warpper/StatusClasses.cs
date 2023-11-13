@@ -50,10 +50,10 @@ public class StatusClasses
     public class CpuStatus
     {
         public int load;
-        public int temperature;
+        public float temperature;
         public int fan;
 
-        public CpuStatus(int load, int temperature, int fan)
+        public CpuStatus(int load, float temperature, int fan)
         {
             this.load = load;
             this.temperature = temperature;

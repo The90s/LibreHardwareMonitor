@@ -63,6 +63,30 @@ public sealed class ComputerSingleton
             _isOpen = true;
         }
     }
+
+    public static void Reset()
+    {
+        // Note: 这个库初始化有bug，有时候获取不到主板下面的风扇信息（大概六七次会遇到一次）
+        // 所以这里有一个提供一个重置的函数
+        Logger.Debug("computer reset");
+        instance = new Computer()
+        {
+            IsCpuEnabled = true,
+            IsGpuEnabled = true,
+            IsMemoryEnabled = true,
+            IsMotherboardEnabled = true,
+            IsControllerEnabled = true,
+            IsNetworkEnabled = true,
+            IsStorageEnabled = true,
+            // 电池
+            IsBatteryEnabled = true,
+            // 电源
+            IsPsuEnabled = true,
+        };
+        instance.Open();
+        instance.Accept(new UpdateVisitor());
+
+    }
 }
 
 public class UpdateVisitor : IVisitor
