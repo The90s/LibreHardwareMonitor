@@ -11,6 +11,7 @@ public class SensorUtils
     public static bool NameStartWith(ISensor sensor, string value) => sensor.Name.StartsWith(value);
     public static bool TypeIs(ISensor sensor, SensorType type) => sensor.SensorType == type;
     public static bool TypeIsLoad(ISensor sensor) => TypeIs(sensor, SensorType.Load); // %
+    public static bool TypeIsClock(ISensor sensor) => TypeIs(sensor, SensorType.Clock); // MHz
     public static bool TypeIsFan(ISensor sensor) => TypeIs(sensor, SensorType.Fan);
     public static bool TypeIsTemperature(ISensor sensor) => TypeIs(sensor, SensorType.Temperature); // °C
     public static bool TypeIsData(ISensor sensor) => TypeIs(sensor, SensorType.Data); // GB

@@ -35,7 +35,6 @@ public sealed class ComputerSingleton
             if (!_isOpen)
             {
                 instance.Open();
-
             }
             return instance;
         }

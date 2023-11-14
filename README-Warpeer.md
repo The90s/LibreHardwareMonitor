@@ -124,6 +124,7 @@
     -   `|  +- D3D 3D         : 0.749275        0  11.8109 (/gpu-amd/0/load/2)` 用这个字段来替换？？？
 -   ZHITAI TiPlus5000 512GB 使用率获取不到
     -   `Used Space     :                            (/nvme/1/load/0)`
+-   Computer 实例有时候会初始化失败；（解决方案：在初始化一次 ComputerSingleton 中的 Reset）
 
 ## dotnet
 

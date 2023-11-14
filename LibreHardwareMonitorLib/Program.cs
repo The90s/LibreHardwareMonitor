@@ -21,10 +21,12 @@ namespace LibreHardwareMonitor
                     // Update system info: network、CPU load、GPU load、temp、fan、etc
                     SystemInformationStatus.init(intervalMs);
                     Logger.Debug($"LibreHardwareMonitorInit end");
+                    // Logger.Debug($"BIOS: {ComputerSingleton.Instance.SMBios.GetReport()}");
                 }
                 return true;
             });
         }
+        public async Task<object> LibreHardwareMonitorIsInited() => ComputerSingleton.IsOpen;
 
         // Logger ---------------------------------------
 
@@ -52,11 +54,15 @@ namespace LibreHardwareMonitor
 
 
         // Status ---------------------------------------
+        public async Task<object> AllStatus(dynamic input) => SystemInformationStatus.AllStatus();
         // CPU
         public async Task<object> CpuStatus(dynamic input) => SystemInformationStatus.GetCpuStatus();
         public async Task<object> CpuTemperature(dynamic input) => SystemInformationStatus.CpuTemperature();
         public async Task<object> CpuLoad(dynamic input) => SystemInformationStatus.CpuLoad();
-        public async Task<object> CpuFan(dynamic input) => SystemInformationStatus.CpuFan();
+        public async Task<object> CpuFans(dynamic input) => SystemInformationStatus.CpuFans();
+
+        public async Task<object> CpuFanAverage(dynamic input) => SystemInformationStatus.CpuFanAverage();
+        public async Task<object> CpuSpeedAverage(dynamic input) => SystemInformationStatus.CpuSpeedAverage();
 
         // GPU
         public async Task<object> GpuStatus(dynamic input) => SystemInformationStatus.GetGpuStatus();
