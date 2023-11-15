@@ -16,6 +16,7 @@ public class SensorUtils
     public static bool TypeIsTemperature(ISensor sensor) => TypeIs(sensor, SensorType.Temperature); // °C
     public static bool TypeIsData(ISensor sensor) => TypeIs(sensor, SensorType.Data); // GB
     public static bool TypeIsThroughput(ISensor sensor) => TypeIs(sensor, SensorType.Throughput); // B/s
+    public static bool TypeIsPower(ISensor sensor) => TypeIs(sensor, SensorType.Power); // W
     public static bool ValueIsNotNullAndZero(ISensor sensor) => sensor.Value != null && (int)sensor.Value != 0;
 
     public static void PrintSensorDetails(ISensor sensor)

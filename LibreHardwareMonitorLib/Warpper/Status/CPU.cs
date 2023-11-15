@@ -9,11 +9,12 @@ public class CPU
 {
     private static List<int> _cpuSpeeds = new(); // MHz
     private static List<Fan> _cpuFans = new(); // RPM/S
-    public int load;
-    public float temperature;
+    public int load; // %
+    public float temperature; //
     public Fan[] fans;
-    public int fanAverage;
-    public int speedAverage;
+    public int fanAverage; // RPM/S
+    public int speedAverage; // Frequency
+    public float power; // W
 
     // public int Load => load;
     // public float Temperature => temperature;
@@ -53,6 +54,10 @@ public class CPU
             {
                 // TODO
                 _cpuSpeeds.Add((int)sensor.Value);
+            }
+            else if (SensorUtils.NameEquels(sensor, "CPU Package") && SensorUtils.TypeIsPower(sensor))
+            {
+                cpu.power = (int)(sensor.Value ?? 0);
             }
         }
         cpu.speedAverage = (int)_cpuSpeeds.Average();

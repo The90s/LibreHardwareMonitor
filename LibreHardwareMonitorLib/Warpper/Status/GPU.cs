@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using LibreHardwareMonitor.Hardware;
 
@@ -23,7 +22,9 @@ public class GPU
 
     public int load;
     public int temperature;
+    public int speed;
     public int fan;
+    public float power;
     // public int Load => load;
     // public int Temperature => temperature;
     // public int Fan => fan;
@@ -83,6 +84,14 @@ public class GPU
                         gpu.fan = (int)sensor.Value;
                         Logger.Debug($"Nvidia GPU Fan; Name: {sensor.Name}; Value : {gpu.fan}");
                     }
+                    else if (SensorUtils.NameEquels(sensor, "GPU Package") && SensorUtils.TypeIsPower(sensor))
+                    {
+                        gpu.power = (int)sensor.Value;
+                    }
+                    else if (SensorUtils.NameEquels(sensor, "GPU Core") && SensorUtils.TypeIsClock(sensor))
+                    {
+                        gpu.speed = (int)sensor.Value;
+                    }
                 }
             }
         }
@@ -115,6 +124,14 @@ public class GPU
                         // |  +- GPU Fan        :        0        0        0 (/gpu-amd/0/fan/0)
                         Logger.Debug($"AMD GPU Fan; Name: {sensor.Name}, Value: {gpu.fan}");
                     }
+                    else if (SensorUtils.NameEquels(sensor, "GPU Package") && SensorUtils.TypeIsPower(sensor))
+                    {
+                        gpu.power = (int)sensor.Value;
+                    }
+                    else if (SensorUtils.NameEquels(sensor, "GPU Core") && SensorUtils.TypeIsClock(sensor))
+                    {
+                        gpu.speed = (int)sensor.Value;
+                    }
                 }
             }
         }
@@ -136,9 +153,16 @@ public class GPU
                         gpu.load = (int)(sensor.Value ?? 0);
                         Logger.Debug($"Intel GPU load: {gpu.load}");
                     }
+                    else if (SensorUtils.NameEquels(sensor, "GPU Power") && SensorUtils.TypeIsPower(sensor))
+                    {
+                        gpu.power = (int)(sensor.Value ?? 0);
+                        Logger.Debug($"Intel GPU power: {gpu.load}");
+                    }
                 }
             }
 
+            // Note: 先设置集显频率为Intel的频率
+            gpu.speed = cpu.speedAverage;
             // intel GPU的温度就CPU的温度
             gpu.temperature = (int)cpu.temperature;
             // intel GPU的风扇就CPU的风扇
