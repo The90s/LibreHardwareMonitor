@@ -52,7 +52,7 @@ public class SystemInfomationSpec
     public static string Storage => _storage;
     public static string Network => _network;
     public static string Battery => _battery;
-    public static string Monitor()
+    public static Monitor Monitor()
     {
         // Caption: Generic PnP Monitor
         // Description: Generic PnP Monitor
@@ -75,11 +75,11 @@ public class SystemInfomationSpec
             // Note: 简单处理，只返回一个
             if (!string.IsNullOrEmpty(hardware.UserFriendlyName))
             {
-                return hardware.UserFriendlyName;
+                return hardware;
             }
 
         }
-        return string.Empty;
+        return new();
     }
 
     public static void init(IList<IHardware> hardwares)

@@ -6,7 +6,8 @@ public class Memory
 {
     public int load;
     public int used;
-    public static int total;
+    public int total;
+    public static int sTotal;
     // public int Load => load;
     // public int Used => used;
     // public int Total => total;
@@ -17,12 +18,12 @@ public class Memory
     {
         this.load = load;
         this.used = used;
-        Memory.total = total;
+        this.total = total;
     }
 
     public static void initTotal(Computer computer)
     {
-        if (total != 0)
+        if (sTotal != 0)
         {
             return;
         }
@@ -30,9 +31,9 @@ public class Memory
         SMBios sMBios = computer.SMBios;
         foreach (var memoryDevices in sMBios.MemoryDevices)
         {
-            total += memoryDevices.Size;
+            sTotal += memoryDevices.Size;
         }
-        Logger.Debug($"Total Memory: {total}"); // MB
+        Logger.Debug($"Total Memory: {sTotal}"); // MB
     }
 
     public static void Update(Memory memory, IHardware hardware)
@@ -50,6 +51,7 @@ public class Memory
                 Logger.Debug($"mem used: {memory.used}");
             }
         }
-        Logger.Debug($"mem total: {total}");
+        memory.total = sTotal;
+        Logger.Debug($"mem total: {memory.total}");
     }
 }

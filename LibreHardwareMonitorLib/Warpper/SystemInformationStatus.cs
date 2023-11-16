@@ -107,7 +107,7 @@ public class SystemInformationStatus
     public static Memory GetMemStatus() { lock (_computerUpdateLock) { return _memory; } }
     public static int MemLoad() { lock (_computerUpdateLock) { return _memory.load; } }
     public static float MemUsed() { lock (_computerUpdateLock) { return _memory.used; } }
-    public static int MemTotal() { lock (_computerUpdateLock) { return Memory.total; } }
+    public static int MemTotal() { lock (_computerUpdateLock) { return _memory.total; } }
 
     // Disk
     public static Disk GetDiskStatus() { lock (_computerUpdateLock) { return _disk; } }
