@@ -104,7 +104,7 @@ public class SystemInformationStatus
     public static int GpuFan() { lock (_computerUpdateLock) { return _gpu.fan; } }
 
     // Memory
-    public static Memory GetMemStatus() { lock (_computerUpdateLock) { return _memory; } }
+    public static Memory GetMemoryStatus() { lock (_computerUpdateLock) { return _memory; } }
     public static int MemLoad() { lock (_computerUpdateLock) { return _memory.load; } }
     public static float MemUsed() { lock (_computerUpdateLock) { return _memory.used; } }
     public static int MemTotal() { lock (_computerUpdateLock) { return _memory.total; } }

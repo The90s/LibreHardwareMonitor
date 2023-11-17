@@ -71,7 +71,7 @@ namespace LibreHardwareMonitor
         public async Task<object> GpuFan(dynamic input) => SystemInformationStatus.GpuFan();
 
         // Memory
-        public async Task<object> MemStatus(dynamic input) => SystemInformationStatus.GetMemStatus();
+        public async Task<object> MemoryStatus(dynamic input) => SystemInformationStatus.GetMemoryStatus();
         public async Task<object> MemLoad(dynamic input) => SystemInformationStatus.MemLoad();
         public async Task<object> MemUsed(dynamic input) => SystemInformationStatus.MemUsed();
         public async Task<object> MemTotal(dynamic input) => SystemInformationStatus.MemTotal();
