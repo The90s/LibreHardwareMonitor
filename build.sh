@@ -2,6 +2,8 @@
 
 BUILD_TYPE=Debug
 
+rm -rf bin/
+
 case "$1" in
 r | release | Release)
     dotnet.exe build --configuration Release ./LibreHardwareMonitor.sln /target:LibreHardwareMonitorLib:rebuild /property:GenerateFullPaths=true /consoleloggerparameters:NoSummary
