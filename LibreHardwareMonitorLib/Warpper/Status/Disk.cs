@@ -2,7 +2,7 @@ using System;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware.Storage;
 
-namespace LibreHardwareMonitor;
+namespace LibreHardwareMonitor.Warpper;
 
 public class Disk
 {

@@ -1,8 +1,6 @@
-﻿#define DEBUG_SENSOR_STATUS
-// #undef DEBUG_SENSOR_STATUS
-using System;
+﻿using System;
 
-namespace LibreHardwareMonitor;
+namespace LibreHardwareMonitor.Warpper;
 
 public class Logger
 {

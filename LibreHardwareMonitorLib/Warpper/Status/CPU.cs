@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LibreHardwareMonitor.Hardware;
 
-namespace LibreHardwareMonitor;
+namespace LibreHardwareMonitor.Warpper;
 
 public class CPU
 {
@@ -80,6 +80,7 @@ public class CPU
 
             foreach (ISensor sensor in sensors)
             {
+                sensor.Control.SetSoftware(10);
                 //          Name                value      Min      Max Identifier
                 // |  |  +- Fan #1         :  1628.47  1584.51  1920.34 (/lpc/nct6798d/fan/0)
                 // Logger.Debug(String.Format("{0}|  +- {1,-14} : {2,8:G6} {3,8:G6} {4,8:G6} ({5})", ' ', sensor.Name, sensor.Value, sensor.Min, sensor.Max, sensor.Identifier));

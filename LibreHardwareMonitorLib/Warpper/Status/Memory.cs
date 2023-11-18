@@ -1,6 +1,6 @@
 ﻿using LibreHardwareMonitor.Hardware;
 
-namespace LibreHardwareMonitor;
+namespace LibreHardwareMonitor.Warpper;
 
 public class Memory
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using LibreHardwareMonitor.Hardware;
 
-namespace LibreHardwareMonitor;
+namespace LibreHardwareMonitor.Warpper;
 
 public class GPU
 {

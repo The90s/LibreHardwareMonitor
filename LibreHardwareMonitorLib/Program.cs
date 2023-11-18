@@ -1,6 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using LibreHardwareMonitor.Hardware;
+﻿using System.Threading.Tasks;
+using LibreHardwareMonitor.Warpper;
 
 namespace LibreHardwareMonitor
 {
