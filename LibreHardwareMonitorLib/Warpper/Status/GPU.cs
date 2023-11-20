@@ -81,16 +81,16 @@ public class GPU
                     else if (SensorUtils.NameStartWith(sensor, "GPU Fan") && SensorUtils.TypeIsFan(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
                     {
                         // Note: 这里就取了一个, 同一个显卡的风扇转速可能差不多
-                        gpu.fan = (int)sensor.Value;
+                        gpu.fan = (int)(sensor.Value ?? 0);
                         Logger.Debug($"Nvidia GPU Fan; Name: {sensor.Name}; Value : {gpu.fan}");
                     }
                     else if (SensorUtils.NameEquels(sensor, "GPU Package") && SensorUtils.TypeIsPower(sensor))
                     {
-                        gpu.power = (int)sensor.Value;
+                        gpu.power = (int)(sensor.Value ?? 0);
                     }
                     else if (SensorUtils.NameEquels(sensor, "GPU Core") && SensorUtils.TypeIsClock(sensor))
                     {
-                        gpu.speed = (int)sensor.Value;
+                        gpu.speed = (int)(sensor.Value ?? 0);
                     }
                 }
             }
@@ -107,7 +107,7 @@ public class GPU
                 {
                     if (SensorUtils.NameEquels(sensor, "GPU Core") && SensorUtils.TypeIsLoad(sensor) && (int)sensor.Value != 0)
                     {
-                        gpu.load = (int)sensor.Value;
+                        gpu.load = (int)(sensor.Value ?? 0);
                         Logger.Debug($"AMD GPU load: {gpu.load}");
                     }
                     else if (SensorUtils.NameEquels(sensor, "GPU Core") && SensorUtils.TypeIsTemperature(sensor))
@@ -118,7 +118,7 @@ public class GPU
                     else if (SensorUtils.NameStartWith(sensor, "GPU Fan") && SensorUtils.TypeIsFan(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
                     {
                         // Note: 这里就取了一个, 同一个显卡的风扇转速可能差不多
-                        gpu.fan = (int)sensor.Value;
+                        gpu.fan = (int)(sensor.Value ?? 0);
                         // Note: 有可能没达到显示的启动触发历零界点，风扇不会启动, 风扇历速度就为0
                         // Radeon RX 580 Series (/gpu-amd/0) 获取不到
                         // |  +- GPU Fan        :        0        0        0 (/gpu-amd/0/fan/0)
@@ -126,11 +126,11 @@ public class GPU
                     }
                     else if (SensorUtils.NameEquels(sensor, "GPU Package") && SensorUtils.TypeIsPower(sensor))
                     {
-                        gpu.power = (int)sensor.Value;
+                        gpu.power = (int)(sensor.Value ?? 0);
                     }
                     else if (SensorUtils.NameEquels(sensor, "GPU Core") && SensorUtils.TypeIsClock(sensor))
                     {
-                        gpu.speed = (int)sensor.Value;
+                        gpu.speed = (int)(sensor.Value ?? 0);
                     }
                 }
             }

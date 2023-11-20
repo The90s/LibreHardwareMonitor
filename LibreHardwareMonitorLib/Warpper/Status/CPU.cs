@@ -50,10 +50,9 @@ public class CPU
                 cpu.load = (int)(sensor.Value ?? 0);
                 Logger.Debug($"cpu load: {cpu.load}");
             }
-            else if (SensorUtils.NameStartWith(sensor, "CPU Core #") && SensorUtils.TypeIsClock(sensor))
+            else if (SensorUtils.NameStartWith(sensor, "CPU Core #") && SensorUtils.TypeIsClock(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
             {
-                // TODO
-                _cpuSpeeds.Add((int)sensor.Value);
+                _cpuSpeeds.Add((int)(sensor.Value ?? 0));
             }
             else if (SensorUtils.NameEquels(sensor, "CPU Package") && SensorUtils.TypeIsPower(sensor))
             {
@@ -91,7 +90,7 @@ public class CPU
                     // TODO: 还不确定多个风扇中 哪个是CPU风扇，哪个是风道风扇
                     // 这里只是做了一个简单处理，取了一个最大速度的
                     // _cpuFans.Add((int)sensor.Value);
-                    _cpuFans.Add(new Fan(sensor.Name, (int)sensor.Value, (int)sensor.Max));
+                    _cpuFans.Add(new Fan(sensor.Name, (int)(sensor.Value ?? 0), (int)(sensor.Max ?? 0)));
 
                     Logger.Debug($"cpu fan Name: {sensor.Name}; Value: {sensor.Value}; Max: {sensor.Max}");
                 }
