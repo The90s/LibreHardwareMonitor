@@ -60,7 +60,10 @@ public class CPU
                 cpu.power = (int)(sensor.Value ?? 0);
             }
         }
-        cpu.speedAverage = (int)_cpuSpeeds.Average();
+        if (_cpuSpeeds.Count() != 0)
+        {
+            cpu.speedAverage = (int)_cpuSpeeds.Average();
+        }
     }
 
     public static void UpdateFans(CPU cpu, IHardware hardware)
