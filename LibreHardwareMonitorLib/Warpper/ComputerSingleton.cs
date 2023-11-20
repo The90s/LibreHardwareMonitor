@@ -5,6 +5,8 @@ namespace LibreHardwareMonitor.Warpper;
 
 public sealed class ComputerSingleton
 {
+    private readonly static uint MAX_TIMES = 5;
+    private static uint times = 0;
 
     private static Computer instance = new Computer
     {
@@ -62,9 +64,14 @@ public sealed class ComputerSingleton
 
     public static void Reset()
     {
+        if (times++ == MAX_TIMES)
+        {
+            Logger.Debug($"computer reset times timeout: {times}");
+            return;
+        }
         // Note: 这个库初始化有bug，有时候获取不到主板下面的风扇信息（大概六七次会遇到一次）
         // 所以这里有一个提供一个重置的函数
-        Logger.Debug("computer reset");
+        Logger.Debug($"computer reset times: {times}");
         instance = new Computer()
         {
             IsCpuEnabled = true,
