@@ -79,7 +79,7 @@ public class Fans
 
     public class Fan
     {
-        public string name;
+        public int id;
         public int value;
         public int max;
 
@@ -87,13 +87,35 @@ public class Fans
 
         public Fan(string name, int value, int max)
         {
-            this.name = name;
+            id = GetID(name);
             this.value = value;
             this.max = max;
         }
+
+        static public int GetID(string name)
+        {
+            string idString = name.Replace("Fan #", "");
+            int ret = 0;
+            try
+            {
+                ret = int.Parse(idString);
+            }
+            catch (FormatException e)
+            {
+                Logger.Debug(e.Message);
+                return -1;
+            }
+            return ret;
+        }
+
+        static public string GetName(int id)
+        {
+            return $"Fan #{id}";
+        }
+
         public override string ToString()
         {
-            return $"Fan: Name={name}; Value={value}; Max:{max}";
+            return $"Fan: ID={id}; Value={value}; Max:{max}";
         }
     }
 }
