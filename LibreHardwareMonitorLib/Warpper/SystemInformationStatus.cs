@@ -43,6 +43,9 @@ public class SystemInformationStatus
     // private static int _gpuFan = 0;
     // private static int _gpuMem = 0; // TODO: 暂时不需要
 
+    // Fans
+    private static Fans _fans = _allStatus.fans;
+
     // Network
     private static Network _network = _allStatus.network; // kb/s
     // private static float _networkUpload = 0; // kb/s
@@ -74,25 +77,11 @@ public class SystemInformationStatus
         Memory.initTotal(ComputerSingleton.Instance);
     }
 
-    // public static void initSpec(Computer computer)
-    // {
-    //     // init Memeory (Total)
-    //     SMBios sMBios = computer.SMBios;
-    //     foreach (var memoryDevices in sMBios.MemoryDevices)
-    //     {
-    //         _memTotal += memoryDevices.Size;
-    //     }
-    //     Logger.Debug($"Total Memory: {_memTotal}"); // MB
-
-    // }
-
     public static object AllStatus() { lock (_computerUpdateLock) { return _allStatus; } }
     // CPU
     public static CPU GetCpuStatus() { lock (_computerUpdateLock) { return _cpu; } }
     public static float CpuTemperature() { lock (_computerUpdateLock) { return _cpu.temperature; } }
     public static int CpuLoad() { lock (_computerUpdateLock) { return _cpu.load; } }
-    public static Fan[] CpuFans() { lock (_computerUpdateLock) { return _cpu.fans; } }
-    public static int CpuFanAverage() { lock (_computerUpdateLock) { return _cpu.fanAverage; } }
     public static int CpuSpeedAverage() { lock (_computerUpdateLock) { return _cpu.speedAverage; } }
 
     // GPU
@@ -117,6 +106,9 @@ public class SystemInformationStatus
     public static float DiskReadSpeed() { lock (_computerUpdateLock) { return _disk.readSpeed; } }
     public static float DiskWriteSpeed() { lock (_computerUpdateLock) { return _disk.writeSpeed; } }
 
+    // Fans
+    public static Fans GetFansStatus() { lock (_computerUpdateLock) { return _fans; } }
+
     // Network
     public static Network GetNetworkStatus() { lock (_computerUpdateLock) { return _network; } }
     public static float NetworkUpload() { lock (_computerUpdateLock) { return _network.upload; } }
@@ -137,7 +129,8 @@ public class SystemInformationStatus
                 {
                     case HardwareType.Motherboard:
                         // updateMotherboard(hardware);
-                        CPU.UpdateFans(_cpu, hardware);
+                        // CPU.UpdateFans(_cpu, hardware);
+                        Fans.UpdateFans(_fans, hardware);
                         break;
                     case HardwareType.SuperIO: break;
                     case HardwareType.Cpu:
@@ -170,7 +163,7 @@ public class SystemInformationStatus
 
             // 不同显卡处理
             // updateGpu(ComputerSingleton.Instance.Hardware);
-            GPU.Update(_gpu, ComputerSingleton.Instance.Hardware, _cpu);
+            GPU.Update(_gpu, ComputerSingleton.Instance.Hardware, _cpu, _fans);
         }
     }
 

@@ -56,7 +56,7 @@ public class GPU
         }
 
     }
-    public static void Update(GPU gpu, IList<IHardware> hardwares, CPU cpu)
+    public static void Update(GPU gpu, IList<IHardware> hardwares, CPU cpu, Fans fans)
     {
         if (_isGpuNvidia)
         {
@@ -166,10 +166,7 @@ public class GPU
             // intel GPU的温度就CPU的温度
             gpu.temperature = (int)cpu.temperature;
             // intel GPU的风扇就CPU的风扇
-            if (cpu.fans != null && cpu.fans.Length > 0)
-            {
-                gpu.fan = cpu.fanAverage;
-            }
+            gpu.fan = fans.average;
             Logger.Debug($"Intel GPU temperature: {gpu.temperature}");
             Logger.Debug($"Intel GPU Fan: {gpu.fan}");
         }

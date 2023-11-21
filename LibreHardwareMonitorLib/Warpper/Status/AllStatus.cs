@@ -8,4 +8,5 @@ public class AllStatus
     public Disk disk = new();
     public Memory memory = new();
     public Network network = new();
+    public Fans fans = new();
 }

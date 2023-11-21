@@ -58,9 +58,6 @@ namespace LibreHardwareMonitor
         public async Task<object> CpuStatus(dynamic input) => SystemInformationStatus.GetCpuStatus();
         public async Task<object> CpuTemperature(dynamic input) => SystemInformationStatus.CpuTemperature();
         public async Task<object> CpuLoad(dynamic input) => SystemInformationStatus.CpuLoad();
-        public async Task<object> CpuFans(dynamic input) => SystemInformationStatus.CpuFans();
-
-        public async Task<object> CpuFanAverage(dynamic input) => SystemInformationStatus.CpuFanAverage();
         public async Task<object> CpuSpeedAverage(dynamic input) => SystemInformationStatus.CpuSpeedAverage();
 
         // GPU
@@ -84,6 +81,9 @@ namespace LibreHardwareMonitor
         public async Task<object> DiskTemperature(dynamic input) => SystemInformationStatus.DiskTemperature();
         public async Task<object> DiskReadSpeed(dynamic input) => SystemInformationStatus.DiskReadSpeed();
         public async Task<object> DiskWriteSpeed(dynamic input) => SystemInformationStatus.DiskWriteSpeed();
+
+        // Network:
+        public async Task<object> FansStatus(dynamic input) => SystemInformationStatus.GetFansStatus();
 
         // Network
         public async Task<object> NetworkStatus(dynamic input) => SystemInformationStatus.GetNetworkStatus();
