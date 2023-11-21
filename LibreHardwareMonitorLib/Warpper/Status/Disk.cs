@@ -79,7 +79,8 @@ public class Disk
                 // catch (IOException) { }
                 catch (UnauthorizedAccessException) { }
             }
-            Logger.Debug($"Disk Driver Total Size: {disk.total} KB | {disk.total / 1024 / 1024 / 1024} G");
+            disk.total /= (1024 * 1024 * 1024);
+            Logger.Debug($"Disk Driver Total Size: {disk.total} KB | {disk.total} G");
         }
 
         if (_mainDiskName.Equals(hardware.Name))
@@ -91,7 +92,7 @@ public class Disk
                     disk.load = (int)(sensor.Value ?? 0);
                     disk.used = disk.total / 100 * disk.load;
                     Logger.Debug($"disk load: {disk.load}%");
-                    Logger.Debug($"disk used: {disk.used} KB");
+                    Logger.Debug($"disk used: {disk.used} GB");
                 }
                 else if (SensorUtils.NameEquels(sensor, "Temperature") && SensorUtils.TypeIsTemperature(sensor) && SensorUtils.ValueIsNotNullAndZero(sensor))
                 {
