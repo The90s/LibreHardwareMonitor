@@ -82,7 +82,7 @@ namespace LibreHardwareMonitor
         public async Task<object> DiskReadSpeed(dynamic input) => SystemInformationStatus.DiskReadSpeed();
         public async Task<object> DiskWriteSpeed(dynamic input) => SystemInformationStatus.DiskWriteSpeed();
 
-        // Network:
+        // Fans:
         public async Task<object> FansStatus(dynamic input) => SystemInformationStatus.GetFansStatus();
 
         // Network
