@@ -79,7 +79,7 @@ public class Disk
                 // catch (IOException) { }
                 catch (UnauthorizedAccessException) { }
             }
-            disk.total /= (1024 * 1024 * 1024);
+            disk.total /= 1024 * 1024 * 1024;
             Logger.Debug($"Disk Driver Total Size: {disk.total} KB | {disk.total} G");
         }
 
