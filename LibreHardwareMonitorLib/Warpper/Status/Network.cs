@@ -6,8 +6,6 @@ public class Network
 {
     public float upload;
     public float download;
-    // public float Upload => upload;
-    // public float Download => download;
 
     public Network() { }
     public Network(float upload, float download)

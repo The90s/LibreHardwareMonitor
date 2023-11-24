@@ -56,39 +56,21 @@ namespace LibreHardwareMonitor
         public async Task<object> AllStatus(dynamic input) => SystemInformationStatus.AllStatus();
         // CPU
         public async Task<object> CpuStatus(dynamic input) => SystemInformationStatus.GetCpuStatus();
-        public async Task<object> CpuTemperature(dynamic input) => SystemInformationStatus.CpuTemperature();
-        public async Task<object> CpuLoad(dynamic input) => SystemInformationStatus.CpuLoad();
-        public async Task<object> CpuSpeedAverage(dynamic input) => SystemInformationStatus.CpuSpeedAverage();
 
         // GPU
         public async Task<object> GpuStatus(dynamic input) => SystemInformationStatus.GetGpuStatus();
-        public async Task<object> GpuTemperature(dynamic input) => SystemInformationStatus.GpuTemperature();
-        public async Task<object> GpuLoad(dynamic input) => SystemInformationStatus.GpuLoad();
-        public async Task<object> GpuFan(dynamic input) => SystemInformationStatus.GpuFan();
 
         // Memory
         public async Task<object> MemoryStatus(dynamic input) => SystemInformationStatus.GetMemoryStatus();
-        public async Task<object> MemLoad(dynamic input) => SystemInformationStatus.MemLoad();
-        public async Task<object> MemUsed(dynamic input) => SystemInformationStatus.MemUsed();
-        public async Task<object> MemTotal(dynamic input) => SystemInformationStatus.MemTotal();
 
         // Disk
         public async Task<object> DiskStatus(dynamic input) => SystemInformationStatus.GetDiskStatus();
-        public async Task<object> DiskLoad(dynamic input) => SystemInformationStatus.DiskLoad();
-        public async Task<object> DiskUsed(dynamic input) => SystemInformationStatus.DiskUsed();
-        public async Task<object> DiskTotal(dynamic input) => SystemInformationStatus.DiskTotal();
-        public async Task<object> DiskActivity(dynamic input) => SystemInformationStatus.DiskActivity();
-        public async Task<object> DiskTemperature(dynamic input) => SystemInformationStatus.DiskTemperature();
-        public async Task<object> DiskReadSpeed(dynamic input) => SystemInformationStatus.DiskReadSpeed();
-        public async Task<object> DiskWriteSpeed(dynamic input) => SystemInformationStatus.DiskWriteSpeed();
 
         // Fans:
         public async Task<object> FansStatus(dynamic input) => SystemInformationStatus.GetFansStatus();
 
         // Network
         public async Task<object> NetworkStatus(dynamic input) => SystemInformationStatus.GetNetworkStatus();
-        public async Task<object> NetworkUpload(dynamic input) => SystemInformationStatus.NetworkUpload();
-        public async Task<object> NetworkDownload(dynamic input) => SystemInformationStatus.NetworkDownload();
 
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using static LibreHardwareMonitor.Warpper.Fans;
 
 namespace LibreHardwareMonitor.Warpper;
 
@@ -8,5 +10,5 @@ public class AllStatus
     public Disk disk = new();
     public Memory memory = new();
     public Network network = new();
-    public Fans fans = new();
+    public Fan[] fans = Array.Empty<Fan>();
 }

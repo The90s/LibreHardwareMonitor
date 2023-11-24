@@ -5,15 +5,6 @@ namespace LibreHardwareMonitor.Warpper;
 
 public class GPU
 {
-    // enum GPUType
-    // {
-    //     Nvidia,
-    //     AMD,
-    //     // TODO: 区分 Intel 集显和Intel 独显
-    //     // 独显的还没有测试守
-    //     Intel,
-    // }
-    // private static GPUType type = GPUType.Intel;
 
     // 先简单用着，后面可能
     private static bool _isGpuNvidia = false;
@@ -25,9 +16,6 @@ public class GPU
     public int speed;
     public int fan;
     public float power;
-    // public int Load => load;
-    // public int Temperature => temperature;
-    // public int Fan => fan;
 
     public GPU() { }
     public GPU(int load, int temperature, int fan)
@@ -56,7 +44,7 @@ public class GPU
         }
 
     }
-    public static void Update(GPU gpu, IList<IHardware> hardwares, CPU cpu, Fans fans)
+    public static void Update(GPU gpu, IList<IHardware> hardwares, CPU cpu)
     {
         if (_isGpuNvidia)
         {
@@ -165,8 +153,8 @@ public class GPU
             gpu.speed = cpu.speedAverage;
             // intel GPU的温度就CPU的温度
             gpu.temperature = (int)cpu.temperature;
-            // intel GPU的风扇就CPU的风扇
-            gpu.fan = fans.average;
+            // intel GPU的风扇为0
+            gpu.fan = 0;
             Logger.Debug($"Intel GPU temperature: {gpu.temperature}");
             Logger.Debug($"Intel GPU Fan: {gpu.fan}");
         }

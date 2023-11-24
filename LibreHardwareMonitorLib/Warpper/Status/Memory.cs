@@ -8,12 +8,8 @@ public class Memory
     public int used;
     public int total;
     public static int sTotal;
-    // public int Load => load;
-    // public int Used => used;
-    // public int Total => total;
 
     public Memory() { }
-
     public Memory(int load, int used, int total)
     {
         this.load = load;

@@ -41,19 +41,17 @@ public class ComputerReports
 
     public static string GetReport(HardwareType type)
     {
+        StringBuilder stringBuilder = new();
+        foreach (IHardware hardware in ComputerSingleton.Hardwares)
         {
-            StringBuilder stringBuilder = new();
-            foreach (IHardware hardware in ComputerSingleton.Hardwares)
+            if (hardware.HardwareType == type)
             {
-                if (hardware.HardwareType == type)
-                {
-                    stringBuilder.Append(hardware.GetReport());
-                }
-
+                stringBuilder.Append(hardware.GetReport());
             }
 
-            return stringBuilder.ToString();
         }
+
+        return stringBuilder.ToString();
     }
 
 }

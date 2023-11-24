@@ -7,18 +7,12 @@ namespace LibreHardwareMonitor.Warpper;
 
 public class Fans
 {
-    private static List<Fan> _sFans = new(); // RPM/S
-
-    public Fan[] items;
-    public int average; // RPM/S
-
     public Fans() { }
-
-    public static void UpdateFans(Fans fans, IHardware hardware)
+    public static void UpdateFans(ref Fan[] fans, IHardware hardware)
     {
         // 1. 更新风扇
         // 2. 主板温度？ TODO：
-        _sFans.Clear();
+        List<Fan> fansList = new();
 
         foreach (IHardware subHardware in hardware.SubHardware)
         {
@@ -39,7 +33,7 @@ public class Fans
                     // TODO: 还不确定多个风扇中 哪个是CPU风扇，哪个是风道风扇
                     // 这里只是做了一个简单处理，取了一个最大速度的
                     // _cpuFans.Add((int)sensor.Value);
-                    _sFans.Add(new Fan(sensor.Name, (int)(sensor.Value ?? 0), (int)(sensor.Max ?? 0)));
+                    fansList.Add(new Fan(sensor.Name, (int)(sensor.Value ?? 0), (int)(sensor.Max ?? 0)));
 
                     Logger.Debug($"cpu fan Name: {sensor.Name}; Value: {sensor.Value}; Max: {sensor.Max}");
                 }
@@ -63,19 +57,17 @@ public class Fans
             // |  |  +- Fan #7         :      100      100      100 (/lpc/nct6798d/control/6)
         }
 
-        if (_sFans.Count() == 0)
+        if (fansList.Count() == 0)
         {
             // Note: 这个库有bug，有时候初始化获取不到主板Sensor信息，这里去重新初始化
             ComputerSingleton.Reset();
+            fans = Array.Empty<Fan>();
             return;
         }
-        fans.average = _sFans.Sum(fan => fan.value) / _sFans.Count();
-        fans.items = _sFans.ToArray();
+        fans = fansList.ToArray();
 
-        // TODO:
-        _sFans.ForEach((fan) => Logger.Debug($"cpu fan: {fan}"));
+        fansList.ForEach((fan) => Logger.Debug($"cpu fan: {fan}"));
     }
-
 
     public class Fan
     {

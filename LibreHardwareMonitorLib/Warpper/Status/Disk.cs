@@ -15,19 +15,7 @@ public class Disk
     public float readSpeed;
     public float writeSpeed;
 
-    // public int Load => load;
-    // public float Used => used;
-    // public long Total => total;
-    // public float Activity => activity;
-    // public int Temperature => temperature;
-    // public float ReadSpeed => readSpeed;
-    // public float WriteSpeed => writeSpeed;
-
-
-    public Disk()
-    {
-
-    }
+    public Disk() { }
     public Disk(int load, float used, long total, float activity, int temperature, float readSpeed, float writeSpeed)
     {
         this.load = load;
