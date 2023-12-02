@@ -25,9 +25,9 @@ public class CPU
         _cpuSpeeds.Clear();
         foreach (ISensor sensor in hardware.Sensors)
         {
-            // Intel CPU Name: Core Average
-            // AMD CPU Name: CCDs Average (Tdie)
-            if ((SensorUtils.NameEquels(sensor, "Core Average") || SensorUtils.NameEquels(sensor, "CCDs Average (Tdie)")) && SensorUtils.TypeIsTemperature(sensor))
+            // Intel CPU Name: Core Package
+            // AMD CPU Name: Package
+            if ((SensorUtils.NameEquels(sensor, "Core Package") || SensorUtils.NameEquels(sensor, "Package")) && SensorUtils.TypeIsTemperature(sensor))
             {
                 cpu.temperature = sensor.Value ?? 0;
                 Logger.Debug($"cpu temperature: {cpu.temperature}");
