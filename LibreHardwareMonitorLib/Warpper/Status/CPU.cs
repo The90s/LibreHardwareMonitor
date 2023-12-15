@@ -25,6 +25,11 @@ public class CPU
         _cpuSpeeds.Clear();
         foreach (ISensor sensor in hardware.Sensors)
         {
+            // Note: 有些笔记本上有问题：能迭代出sensor，sensor却是空
+            if (sensor == null)
+            {
+                continue;
+            }
             // Intel CPU Name: CPU Package
             // AMD CPU Name: Package
             if ((SensorUtils.NameEquels(sensor, "CPU Package") || SensorUtils.NameEquels(sensor, "Package")) && SensorUtils.TypeIsTemperature(sensor))
